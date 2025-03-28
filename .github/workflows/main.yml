@@ -1,0 +1,35 @@
+name: Track GitHub Traffic
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Codziennie o północy UTC
+  workflow_dispatch:  # Pozwala na ręczne uruchomienie
+
+jobs:
+  track-traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v4
+
+      - name: Pobranie statystyk ruchu za pomocą API GitHub
+        run: |
+          echo "Pobieranie statystyk ruchu..."
+          curl -H "Accept: application/vnd.github.v3+json" \
+               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               https://api.github.com/repos/${{ github.repository }}/traffic/views \
+               > traffic.json
+          cat traffic.json
+
+      - name: Zapisanie danych do pliku
+        run: |
+          mkdir -p traffic_data
+          mv traffic.json traffic_data/traffic_$(date +%Y-%m-%d).json
+
+      - name: Commit i push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add traffic_data/
+          git commit -m "Aktualizacja danych o ruchu $(date +%Y-%m-%d)" || echo "Brak zmian"
+          git push
