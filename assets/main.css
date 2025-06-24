@@ -4,13 +4,13 @@
     --home: url('pulpitb.png');
     --home-open: url('pulpit.png');
     --documents: url('kontakt.png');
-    --documents-open: url('https://i.imgur.com/ZHx3VDs.png');
+    --documents-open: url('kontakt.png');
     --services: url('uslugi.png');
-    --services-open: url('https://i.imgur.com/3V2f5uA.png');
+    --services-open: url('uslugi.png');
     --qr: url('qr.png');
-    --qr-open: url('https://i.imgur.com/vmr8YVg.png');
+    --qr-open: url('qr.png');
     --more: url('wiecej.png');
-    --more-open: url('https://i.imgur.com/e9rnYLl.png');
+    --more-open: url('wiecej.png');
     --text: #024b97;
     --shadow: 0px 0px 10px rgb(224, 224, 224);
 }
